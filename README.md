@@ -71,3 +71,5 @@ jobs:
 https://zenn.dev/moneyforward/articles/20230620-github-packages
 
 https://qiita.com/marumaru0113/items/21b600c21caf5d9b9775
+
+https://qiita.com/shouki-s/items/5e94f37288c3e796a85e

@@ -1,10 +1,13 @@
 {
-  "name": "@github-private-package-mytutorial/test",
+  "name": "@Myxogastria0808/github-private-package-mytutorial",
   "version": "0.0.0",
   "description": "This package is a sample github private npm package.",
   "main": "./src/index.js",
   "scripts": {
     "test": "echo \"Hello, World!\""
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "repository": {
     "type": "git",
