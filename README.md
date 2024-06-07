@@ -1,5 +1,8 @@
 # GitHub Private Repository の構築の流れ
 
+> [!WARNING]
+> この package は、GitHub Private Repository の構築の流れを理解するために作成されたものでああるので、特に機能を持っているわけでもなく、また、private な package にもなっていない点にもご注意ください。
+
 1. プロジェクトの生成
 
 ```shell
