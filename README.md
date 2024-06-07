@@ -25,10 +25,30 @@ Secrest: [Personal Access Token]
 
 ```.npmrc
 //npm.pkg.github.com/:_authToken=DEPLOY_PACKAGE_TOKEN
-@[OrganizationName | GitHubUsername]:registry=https://npm.pkg.github.com
+@[OrganizationName or GitHubUsername]:registry=https://npm.pkg.github.com
 ```
 
-5. `.github/workflows/deploy.yaml`の作成
+5. `package.json`の一部を編集
+
+```json
+{
+  //"name": "@[OrganizationName or GitHubUsername]/[RepositoryName]"
+  "name": "@Myxogastria0808/github-private-package-mytutorial",
+  ...
+  //誤ってnpmに公開することを防止する
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  //レポジトリの情報を記載
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Myxogastria0808/github-private-package-mytutorial.git"
+  },
+  ...
+}
+```
+
+6. `.github/workflows/deploy.yaml`の作成
 
 ```yaml
 name: deploy-package
@@ -44,26 +64,26 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    - name: Replace token of .npmrc
-      shell: bash
-      env:
-        DEPLOY_PACKAGE_TOKEN: ${{ secrets.DEPLOY_PACKAGE_TOKEN }}
-      run: |
-        sed -i "" "s|DEPLOY_PACKAGE_TOKEN|${DEPLOY_PACKAGE_TOKEN}|g" ./.npmrc
-    - name: Check .npmrc
-      run: |
-        cat ./.npmrc
-    - name: Publish github private package
-      run: npm publish
-      env:
-        NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Replace token of .npmrc
+        shell: bash
+        env:
+          DEPLOY_PACKAGE_TOKEN: ${{ secrets.DEPLOY_PACKAGE_TOKEN }}
+        run: |
+          sed -i "s/DEPLOY_PACKAGE_TOKEN/${DEPLOY_PACKAGE_TOKEN}/" ./.npmrc
+      - name: Check .npmrc
+        run: |
+          cat ./.npmrc
+      - name: Publish github private package
+        run: npm publish
+        env:
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## 参考サイト
