@@ -11,23 +11,23 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    - name: Replace token of .npmrc
-      shell: bash
-      env:
-        DEPLOY_PACKAGE_TOKEN: ${{ secrets.DEPLOY_PACKAGE_TOKEN }}
-      run: |
-        sed -i "" "s|DEPLOY_PACKAGE_TOKEN|${DEPLOY_PACKAGE_TOKEN}|g" ./.npmrc
-    - name: Check .npmrc
-      run: |
-        cat ./.npmrc
-    - name: Publish github private package
-      run: npm publish
-      env:
-        NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Replace token of .npmrc
+        shell: bash
+        env:
+          DEPLOY_PACKAGE_TOKEN: ${{ secrets.DEPLOY_PACKAGE_TOKEN }}
+        run: |
+          sed -i "" "s|DEPLOY_PACKAGE_TOKEN|${DEPLOY_PACKAGE_TOKEN}|g" ./.npmrc
+      - name: Check .npmrc
+        run: |
+          cat ./.npmrc
+      - name: Publish github private package
+        run: npm publish
+        env:
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
