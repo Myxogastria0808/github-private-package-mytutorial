@@ -18,6 +18,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: ls
+        shell: bash
+        run: |
+          ls -la
       - name: Replace token of .npmrc
         shell: bash
         env:
