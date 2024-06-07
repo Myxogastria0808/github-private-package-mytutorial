@@ -18,16 +18,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: ls
+      - name: Replace token of .npmrc
         shell: bash
+        env:
+          DEPLOY_PACKAGE_TOKEN: ${{ secrets.DEPLOY_PACKAGE_TOKEN }}
         run: |
-          ls -la
-      # - name: Replace token of .npmrc
-      #   shell: bash
-      #   env:
-      #     DEPLOY_PACKAGE_TOKEN: ${{ secrets.DEPLOY_PACKAGE_TOKEN }}
-      #   run: |
-      #     sed -i "" "s|DEPLOY_PACKAGE_TOKEN|${DEPLOY_PACKAGE_TOKEN}|g" ./.npmrc
+          sed -i "" "s|DEPLOY_PACKAGE_TOKEN|${DEPLOY_PACKAGE_TOKEN}|g" ./.npmrc
       - name: Check .npmrc
         run: |
           cat ./.npmrc
