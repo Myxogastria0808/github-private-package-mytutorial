@@ -21,9 +21,9 @@ jobs:
       - name: Replace token of .npmrc
         shell: bash
         env:
-          DEPLOY_PACKAGE_TOKEN: ${{ secrets.DEPLOY_PACKAGE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          sed -i "s/DEPLOY_PACKAGE_TOKEN/${DEPLOY_PACKAGE_TOKEN}/" ./.npmrc
+          sed -i "s/GITHUB_TOKEN/${GITHUB_TOKEN}/" ./.npmrc
       - name: Check .npmrc
         run: |
           cat ./.npmrc
